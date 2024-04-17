@@ -1,0 +1,8 @@
+{
+    "name": "test-integration",
+    "version": "1.0.0",
+    "scripts": {
+      "test": "echo 'Exécution des tests...'"
+    }
+  }
+  

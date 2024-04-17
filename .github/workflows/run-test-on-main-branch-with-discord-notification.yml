@@ -28,14 +28,14 @@ jobs:
   notify_discord:
     name: Notify Discord
     needs: test
-    runs-on: ubuntu-latest  # Ajout de la propriété runs-on
+    runs-on: ubuntu-latest
     if: ${{ always() }}
-
+    
     steps:
       - name: Notify Discord
-        uses: appleboy/discord-action@master
+        uses: appleboy/discord-action@v1  # Modification de la version ici
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_URL }}
           message: |
-            Les tests sur la branche principale ont été exécutés avec succès.
-            Résultat des tests: ${{ job.status }}
+                  Les tests sur la branche principale ont été exécutés avec succès.
+                  Résultat des tests: ${{ job.status }}

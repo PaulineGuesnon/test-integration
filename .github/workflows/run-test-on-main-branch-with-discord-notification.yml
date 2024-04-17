@@ -33,7 +33,7 @@ jobs:
 
     steps:
       - name: Notify Discord
-        uses: appleboy/discord-action@main
+        uses: appleboy/discord-action@master
         with:
           webhook_id: ${{ secrets.DISCORD_WEBHOOK_URL }}
           message: |

@@ -24,7 +24,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: build-artifact
-        path:  '__tests__/*' # Archive tout le répertoire de travail
+        path:  fichier.txt # Archive tout le répertoire de travail
 
   test:
     runs-on: ubuntu-latest

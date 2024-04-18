@@ -1,21 +1,19 @@
-
-name: Job avec déclencheur de modification de dossier
-
+name: Specific Folder Job
+ 
 on:
   push:
     paths:
-      - 'test-integration/__tests__/**' 
-
+      - 'test-integration/__tests__/**'
+ 
 jobs:
-  test:
+  specific-folder-job:
     runs-on: ubuntu-latest
-
+    if: ${{ github.event_name == 'push' && contains(github.event.head_commit.modified, 'path/to/your/folder/') }}
     steps:
-    - name: Checkout du code
-      uses: actions/checkout@v2
-
-    - name: Installation des dépendances
-      run: npm install
-
-    - name: Exécution des tests
-      run: npm test
+      - name: Checkout code
+        uses: actions/checkout@v2
+ 
+      - name: Run your specific folder job
+        run: |
+          cd test-integration/__tests__
+          npm test  

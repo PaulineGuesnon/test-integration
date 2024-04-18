@@ -1,0 +1,18 @@
+name: Specific Folder Job
+ 
+on:
+  push:
+    paths:
+      - 'test-integration/__tests__/**'
+ 
+jobs:
+  specific-folder-job:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && contains(github.event.head_commit.modified, 'path/to/your/folder/') }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+ 
+      - name: Run your specific folder job
+        run: |
+          # Commandes spécifiques à exécuter lorsque des modifications sont détectées dans le dossier spécifié

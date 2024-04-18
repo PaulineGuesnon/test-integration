@@ -13,12 +13,7 @@ jobs:
     - name: Checkout du code
       uses: actions/checkout@v2
 
-    - name: Construction de l'application
-      run: |
-        # Ici, vous pouvez exécuter des étapes de construction de votre application
-        # Par exemple, installer les dépendances et compiler le code
-        npm install
-        npm run build
+    
 
     - name: Création de l'artefact
       uses: actions/upload-artifact@v2

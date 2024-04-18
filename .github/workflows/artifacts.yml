@@ -32,7 +32,7 @@ jobs:
         name: build-artifact
 
     - name: Exécution des tests
-      run: |
+      run: 
         # Exécutez vos tests sur l'application construite
         # Par exemple, exécutez les tests Jest, Mocha, etc.
         cat fichier.txt

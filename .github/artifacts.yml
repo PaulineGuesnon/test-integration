@@ -1,0 +1,43 @@
+name: Workflow avec Artifacts
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v2
+
+    - name: Construction de l'application
+      run: |
+        # Ici, vous pouvez exécuter des étapes de construction de votre application
+        # Par exemple, installer les dépendances et compiler le code
+        npm install
+        npm run build
+
+    - name: Création de l'artefact
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-artifact
+        path: chemin/vers/votre/application/build # Chemin vers le répertoire ou le fichier à archiver et à passer aux jobs suivants
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Téléchargement de l'artefact
+      uses: actions/download-artifact@v2
+      with:
+        name: build-artifact
+        path: chemin/vers/votre/application/build # Spécifiez le même chemin que celui utilisé lors de la création de l'artefact
+
+    - name: Exécution des tests
+      run: |
+        # Exécutez vos tests sur l'application construite
+        # Par exemple, exécutez les tests Jest, Mocha, etc.
+        npm test

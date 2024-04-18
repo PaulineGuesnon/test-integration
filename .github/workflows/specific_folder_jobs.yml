@@ -3,7 +3,7 @@ name: Specific Folder Job
 on:
   push:
     paths:
-      - 'test-integration/__tests__/**'
+      - 'test-integration/__tests__/*'
  
 jobs:
   specific-folder-job:

@@ -13,10 +13,8 @@ jobs:
     - name: Checkout du code
       uses: actions/checkout@v2
 
-     - name: generation du fichier
+    - name: generation du fichier
       run: echo "contenu du fichier génerer" > fichier.txt
-
-    
 
     - name: Création de l'artefact
       uses: actions/upload-artifact@v2

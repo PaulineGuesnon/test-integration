@@ -1,0 +1,35 @@
+name: Deployment Rollback
+
+on:
+  workflow_run:
+    workflows: ["Deploy Workflow"]  # Nom du workflow de déploiement à surveiller
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  rollback:
+    name: Rollback on Deployment Failure
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      # Ajoutez les étapes nécessaires pour effectuer le rollback,
+      # par exemple, en utilisant des scripts ou des actions spécifiques à votre infrastructure.
+
+      # Exemple: Réinitialiser les instances de l'application
+      - name: Rollback Deployment
+        run: ./scripts/rollback.sh
+
+      # Ajoutez les étapes pour notifier les intervenants du rollback
+      - name: Notify Rollback
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          message: |
+            Rollback executed due to deployment failure.

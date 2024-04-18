@@ -3,16 +3,19 @@ name: Specific Folder Job
 on:
   push:
     paths:
-      - 'test-integration/__tests__/**'
- 
+      - 'test-integration/__tests__/**'  
 jobs:
   specific-folder-job:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && contains(github.event.head_commit.modified, 'path/to/your/folder/') }}
+    if: github.event_name == 'push' && contains(github.event.head_commit.modified, 'test-integration/__tests__')
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+     
+      - name: Install dependencies
+        run: npm install
  
-      - name: Run your specific folder job
+      - name: Run tests in specific folder
         run: |
-          # Commandes spécifiques à exécuter lorsque des modifications sont détectées dans le dossier spécifié
+          cd test-integration/__tests__
+          npm test  

@@ -24,7 +24,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: build-artifact
-        path: chemin/vers/votre/application/build # Chemin vers le répertoire ou le fichier à archiver et à passer aux jobs suivants
+        path: "C:\Users\User\Documents\Methodo test\Test\test-integration\.github\workflows\artifacts"  # Chemin vers le répertoire ou le fichier à archiver et à passer aux jobs suivants
 
   test:
     runs-on: ubuntu-latest
@@ -34,7 +34,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: build-artifact
-        path: chemin/vers/votre/application/build # Spécifiez le même chemin que celui utilisé lors de la création de l'artefact
+        path: "C:\Users\User\Documents\Methodo test\Test\test-integration\.github\workflows\artifacts" # Spécifiez le même chemin que celui utilisé lors de la création de l'artefact
 
     - name: Exécution des tests
       run: |

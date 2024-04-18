@@ -1,0 +1,5 @@
+- name: Téléchargement de l'artefact
+  uses: actions/download-artifact@v2
+  with:
+    name: build-artifact
+    path: dist

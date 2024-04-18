@@ -1,4 +1,4 @@
-name: CI
+name: Static Code Analysis and Test Coverage
 
 on:
   push:
@@ -6,45 +6,54 @@ on:
       - main
 
 jobs:
-  lint:
+  static_analysis:
+    name: Static Code Analysis
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout du code
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      
+      - name: Install Dependencies
+        run: npm install
+      
+      - name: Run ESLint
+        run: npm run lint
 
-    - name: Installation des dépendances
-      run: npm install
-
-    - name: Analyse de code statique avec ESLint
-      run: npm run lint
-
-  test:
+  test_coverage:
+    name: Test Coverage
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout du code
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      
+      - name: Install Dependencies
+        run: npm install
+      
+      - name: Run Tests with Coverage
+        run: npm test -- --coverage
 
-    - name: Installation des dépendances
-      run: npm install
-
-    - name: Exécution des tests avec génération de rapports
-      run: npm test -- --coverage
-
-    - name: Envoi du rapport de couverture à Codecov
-      uses: codecov/codecov-action@v2
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }} 
-  build:
+  notify_discord:
+    name: Notify Discord
+    needs: [static_analysis, test_coverage]
     runs-on: ubuntu-latest
-
+    
     steps:
-    - name: Checkout du code
-      uses: actions/checkout@v2
-
-    - name: Installation des dépendances
-      run: npm install
-
-    - name: Construction de l'application
-      run: npm run build
+      - name: Notify Discord
+        uses: appleboy/discord-action@master
+        with:
+          webhook_id: ${{ secrets.DISCORD_WEBHOOK_ID }}
+          webhook_token: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+          message: |
+            Static Code Analysis and Test Coverage completed successfully.

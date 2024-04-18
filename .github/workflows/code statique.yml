@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v2
+
+    - name: Installation des dépendances
+      run: npm install
+
+    - name: Analyse de code statique avec ESLint
+      run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v2
+
+    - name: Installation des dépendances
+      run: npm install
+
+    - name: Exécution des tests avec génération de rapports
+      run: npm test -- --coverage
+
+    - name: Envoi du rapport de couverture à Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }} 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v2
+
+    - name: Installation des dépendances
+      run: npm install
+
+    - name: Construction de l'application
+      run: npm run build
